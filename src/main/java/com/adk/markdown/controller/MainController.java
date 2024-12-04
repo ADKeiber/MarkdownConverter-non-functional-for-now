@@ -4,10 +4,13 @@ import com.adk.markdown.service.LanguageToolWrapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 public class MainController {
@@ -15,10 +18,10 @@ public class MainController {
     @Autowired
     LanguageToolWrapperService languageToolWrapperService;
 
-    @PostMapping("/checkGrammar")
-    public ResponseEntity<Object> checkGrammar(@RequestParam("file") MultipartFile file) {
+    @GetMapping("/supportedLanguages")
+    public ResponseEntity<Object> getSupportedLanguages() throws IOException, InterruptedException {
 
-        return new ResponseEntity<>("postService.getAllPosts()", HttpStatus.OK);
+        return new ResponseEntity<>(languageToolWrapperService.getSupportedLanguages(), HttpStatus.OK);
     }
 
 

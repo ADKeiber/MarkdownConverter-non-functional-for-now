@@ -1,6 +1,7 @@
 package com.adk.markdown.service;
 
 import com.adk.markdown.model.languagetool.Language;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,12 @@ public class LanguageToolWrapperService {
 
     private final Environment env;
     private String languageToolURL;
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    LanguageToolWrapperService(Environment env){
+    LanguageToolWrapperService(Environment env, ObjectMapper objectMapper){
         this.env = env;
+        this.objectMapper = objectMapper;
         languageToolURL = env.getProperty("language-tool-api.url");
     }
 
@@ -30,6 +33,8 @@ public class LanguageToolWrapperService {
                 .method("GET", HttpRequest.BodyPublishers.noBody()).build();
 
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+       return objectMapper.readValue(response.body(), List.class);
 
     }
 

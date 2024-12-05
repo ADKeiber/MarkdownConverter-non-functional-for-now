@@ -1,6 +1,7 @@
 package com.adk.markdown.controller;
 
 import com.adk.markdown.service.LanguageToolWrapperService;
+import jdk.jfr.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +25,11 @@ public class MainController {
         return new ResponseEntity<>(languageToolWrapperService.getSupportedLanguages(), HttpStatus.OK);
     }
 
+
+    @GetMapping("/grammarCheck") //TODO update
+    public ResponseEntity<Object> processPlainText() throws IOException, InterruptedException {
+
+        return new ResponseEntity<>(languageToolWrapperService.getSupportedLanguages(), HttpStatus.OK);
+    }
 
 }

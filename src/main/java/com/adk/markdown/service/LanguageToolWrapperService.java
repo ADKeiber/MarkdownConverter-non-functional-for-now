@@ -1,6 +1,6 @@
 package com.adk.markdown.service;
 
-import com.adk.markdown.model.languagetool.Language;
+import com.adk.markdown.dto.LanguageDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -27,7 +27,7 @@ public class LanguageToolWrapperService {
         languageToolURL = env.getProperty("language-tool-api.url");
     }
 
-    public List<Language> getSupportedLanguages() throws IOException, InterruptedException {
+    public List<LanguageDTO> getSupportedLanguages() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(languageToolURL + "/v2/languages"))
                 .method("GET", HttpRequest.BodyPublishers.noBody()).build();

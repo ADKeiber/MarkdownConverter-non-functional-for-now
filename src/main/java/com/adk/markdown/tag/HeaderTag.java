@@ -27,13 +27,12 @@ public class HeaderTag extends BaseTag {
         while(entireText.charAt(endBeginningTagIndex) == '#'){
             endBeginningTagIndex++;
         }
-
+        endBeginningTagIndex++;
         this.beginningTag = entireText.substring(0, endBeginningTagIndex);
 
-        int endTagIndex = endBeginningTagIndex;
-
-        while(entireText.charAt(endTagIndex) == '\n'){
-            endTagIndex++;
+        int endTagIndex = entireText.indexOf("\\n");
+        if(endTagIndex == -1){
+            endTagIndex = entireText.length();
         }
 
         this.content = entireText.substring(endBeginningTagIndex, endTagIndex);
@@ -42,6 +41,14 @@ public class HeaderTag extends BaseTag {
         System.out.println("Start tag: " + this.beginningTag);
         System.out.println("content: " + this.content);
         System.out.println("End tag: " + this.endTag);
+        if(endTagIndex != entireText.length())
+            endTagIndex += 2;
+        if (entireText.charAt(0) != '#'){
+            //this formatting won't be applied to the data inside; However, there is still an opportunity to format sub tags
+            // in other words this will be used in html rendering and not
+           validFormat = false;
+        }
+
         return endTagIndex;
     }
 }

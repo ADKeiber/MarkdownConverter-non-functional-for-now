@@ -8,10 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.net.http.HttpClient;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
@@ -24,42 +25,43 @@ public class MarkdownNoteTakingAppApplication {
 		for(BaseTag bt: SupportedTags.tags){
 
 		}
-		final String[] text = {"#### *#Bold Text* \\n ##### Regular text "};
+		String text = "##-## *#Bold Text* \\n ##### Regular text ";
+//		Pattern regex = Pattern.compile("\r?\n", Pattern.MULTILINE);
+//		String[] lines = regex.split(text);
+//		System.out.println(Arrays.toString(lines));
 		Map<Integer, BaseTag> foundTags = new HashMap<>();
+
+		//TODO NEED TO keep track of 'dead indices' which are indices that don't have an applied format (this includes spaces between formatted content)
 
 		//Finds all instances of tag values in a text and
 		SupportedTags.tags.forEach(
 				tag -> {
-//					List<String> foundStrings = new ArrayList<>();
-//					tag.getTagValues().forEach( value -> {
-//							if(text[0].contains(value)){
-//								text[0] = text[0].substring(text[0].indexOf(value), value.length());
-//							}
-//						}
-//					);
-//					text[0]
-//							tag.getTagValues().stream()
-//							.filter(value -> text[0].indexOf(value) != -1).toList();
-//					if(!foundStrings.isEmpty()){
-//                        for (String foundString : foundStrings) {
-//                            foundTags.put(text[0].indexOf(foundString), tag);
-//                        }
-//					}
+					List<String> foundStrings = tag.getTagValues().stream()
+							.filter(text::contains).toList();
+					if(!foundStrings.isEmpty()){
+                        for (String foundString : foundStrings) {
+                            foundTags.put(text.indexOf(foundString), tag);
+                        }
+					}
 
 				}
 		);
+		int lastProcessedIndex = 0;
 		System.out.println(foundTags);
-		for(int i = 0; i < text[0].length(); i++) {
-			if(foundTags.get(i) != null){
-				int index = foundTags.get(i).getTextWithAppliedFormat(text[0]);
-				System.out.println("Remainder text: " + text[0].substring(index));
-			}
-		}
 
-//		HeaderTag headerTag = new HeaderTag();
-//
-//		int index = headerTag.getTextWithAppliedFormat(text);
-//		System.out.println("Remainder text: " + text.substring(index));
+		while(lastProcessedIndex <= text.length()) {
+
+			if(foundTags.get(lastProcessedIndex) != null){
+
+				int endIndex = foundTags.get(lastProcessedIndex).getTextWithAppliedFormat(text.substring(lastProcessedIndex));
+				lastProcessedIndex += endIndex;
+				System.out.println("Remainder text: " + text.substring(lastProcessedIndex));
+				System.out.println(" ");
+			}
+			//handle dead indices in an else statement here?
+//			System.out.println("Current index: " + lastProcessedIndex);
+			lastProcessedIndex++;
+		}
 
 	}
 

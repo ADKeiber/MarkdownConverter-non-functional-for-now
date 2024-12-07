@@ -20,7 +20,10 @@ public abstract class BaseTag {
     public String content;
     public String endTag;
 
-
+    /**
+     * This is needed to see if the actual format of the tag is valid
+     */
+    public boolean validFormat;
     public List<BaseTag> supportedSubtags = new LinkedList<>();
 
     public List<BaseTag> subtags = new LinkedList<>();

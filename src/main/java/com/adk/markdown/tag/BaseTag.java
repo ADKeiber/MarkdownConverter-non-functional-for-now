@@ -1,27 +1,41 @@
 package com.adk.markdown.tag;
 
-import java.util.List;
-import java.util.Set;
+import lombok.Data;
 
+import java.util.*;
+
+@Data
 public abstract class BaseTag {
 
-    Set<String> tagValues;
 
-    String formattedArea; //This will be uniquely set in the class that extends this based on unique criteria for each type of tag
+    public Set<String> tagValues = new HashSet<>();
 
-    List<BaseTag> supportedSubtags;
+    /**
+     * These tags represent the parts of a formatted tag area
+     * 1) the beginning tag that starts the formatting
+     * 2) the content contained inside of the tag
+     * 3) the end tag the signifies the end of the format
+     */
+    public String beginningTag;
+    public String content;
+    public String endTag;
 
-    List<BaseTag> subtags;
 
-//    //Some markup tags can be subtags of other some can't (example of can: Strikethrough make up, example of can't: Headers
-//    boolean canBeSubtag;
-//
-//    //Some tags don't support subtags like links
-//    boolean supportsSubtags;
+    public List<BaseTag> supportedSubtags = new LinkedList<>();
+
+    public List<BaseTag> subtags = new LinkedList<>();
 
     //use Index Of to find
     //Needs to have a collection containing all Tag types and when one is detected the substring for that needs
-    public void generateSubTags(){
-
+    protected void generateSubTags(){
+        //IN this we need to go through the {@link #textWithAppliedTagFormat} and attempt to identify supported subtags and process them
+        // in theory this would run after getTextWithAppliedFormat is ran and it would cascade down through all supported subtags and split them into beginning tag, end tag, and content
     }
+
+    /**
+     * Find Beginning tag, content, endtag, and subtags (generateSubTags)
+     * @param entireText
+     * @return index of the endtag so a
+     */
+    public abstract int getTextWithAppliedFormat(String entireText);
 }

@@ -26,13 +26,41 @@ public abstract class BaseTag {
     public boolean validFormat;
     public List<BaseTag> supportedSubtags = new LinkedList<>();
 
-    public List<BaseTag> subtags = new LinkedList<>();
+    public Map<Integer, BaseTag> subtags = new HashMap<>();
 
     //use Index Of to find
     //Needs to have a collection containing all Tag types and when one is detected the substring for that needs
     protected void generateSubTags(){
+//        System.out.println("Generating tags");
         //IN this we need to go through the {@link #textWithAppliedTagFormat} and attempt to identify supported subtags and process them
         // in theory this would run after getTextWithAppliedFormat is ran and it would cascade down through all supported subtags and split them into beginning tag, end tag, and content
+        //Finds all instances of tag values in a text and
+        supportedSubtags.forEach(
+                tag -> {
+                    List<String> foundStrings = tag.getTagValues().stream()
+                            .filter(content::contains).toList();
+                    if(!foundStrings.isEmpty()){
+                        for (String foundString : foundStrings) {
+                            subtags.put(content.indexOf(foundString), tag);
+                        }
+                    }
+
+                }
+        );
+        int lastProcessedIndex = 0;
+        System.out.println(subtags);
+
+        while(lastProcessedIndex <= content.length()) {
+
+            if(subtags.get(lastProcessedIndex) != null){
+
+                int endIndex = subtags.get(lastProcessedIndex).getTextWithAppliedFormat(content.substring(lastProcessedIndex));
+                lastProcessedIndex += endIndex;
+//                System.out.println("Remainder text: " + content.substring(lastProcessedIndex));
+//                System.out.println(" ");
+            }
+            lastProcessedIndex++;
+        }
     }
 
     /**

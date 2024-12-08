@@ -13,9 +13,10 @@ public class HeaderTag extends BaseTag {
     public HeaderTag() {
         this.tagValues.addAll(List.of(new String[]{"###### ", "##### ","#### ","### ","## ", "# " }));
 
-        this.supportedSubtags.addAll(Arrays.asList(new BaseTag[]{ new BoldTag(), new ItalicTag(),
-                new HorizontalRuleTag(), new LinkTag(), new HeadingIdTag(), new StrikethroughTag(),
-                new EmojiTag(), new HighlightTag(), new SubscriptTag(), new SuperscriptTag()}));
+//        this.supportedSubtags.addAll(Arrays.asList(new BaseTag[]{ new BoldTag(), new ItalicTag(),
+//                new HorizontalRuleTag(), new LinkTag(), new HeadingIdTag(), new StrikethroughTag(),
+//                new EmojiTag(), new HighlightTag(), new SubscriptTag(), new SuperscriptTag()}));
+        this.supportedSubtags.addAll(Arrays.asList(new BaseTag[]{ new BoldTag()}));
         this.endTag = "\\n"; //Header tag end with a new line
     }
 
@@ -36,11 +37,11 @@ public class HeaderTag extends BaseTag {
         }
 
         this.content = entireText.substring(endBeginningTagIndex, endTagIndex);
-        System.out.println("end Index: " + endTagIndex );
+//        System.out.println("end Index: " + endTagIndex );
         generateSubTags();
-        System.out.println("Start tag: " + this.beginningTag);
-        System.out.println("content: " + this.content);
-        System.out.println("End tag: " + this.endTag);
+//        System.out.println("Start tag: " + this.beginningTag);
+//        System.out.println("content: " + this.content);
+//        System.out.println("End tag: " + this.endTag);
         if(endTagIndex != entireText.length())
             endTagIndex += 2;
         if (entireText.charAt(0) != '#'){

@@ -21,14 +21,12 @@ public class MarkdownNoteTakingAppApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(MarkdownNoteTakingAppApplication.class, args);
-
-		for(BaseTag bt: SupportedTags.tags){
-
-		}
-		String text = "##-## *#Bold Text* \\n ##### Regular text ";
+//		String text = "##-## **Bold Text** \\n ##### Regular text ";
+		String text = "**Bold Text**";
 //		Pattern regex = Pattern.compile("\r?\n", Pattern.MULTILINE);
 //		String[] lines = regex.split(text);
 //		System.out.println(Arrays.toString(lines));
+
 		Map<Integer, BaseTag> foundTags = new HashMap<>();
 
 		//TODO NEED TO keep track of 'dead indices' which are indices that don't have an applied format (this includes spaces between formatted content)
@@ -58,11 +56,8 @@ public class MarkdownNoteTakingAppApplication {
 				System.out.println("Remainder text: " + text.substring(lastProcessedIndex));
 				System.out.println(" ");
 			}
-			//handle dead indices in an else statement here?
-//			System.out.println("Current index: " + lastProcessedIndex);
 			lastProcessedIndex++;
 		}
-
 	}
 
 }

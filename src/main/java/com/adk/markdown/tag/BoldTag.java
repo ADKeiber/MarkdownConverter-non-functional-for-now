@@ -8,7 +8,7 @@ public class BoldTag extends BaseTag{
 
     public BoldTag(){
         this.supportedSubtags.addAll(Arrays.asList(new BaseTag[]{ }));
-        this.tagValues.addAll(List.of(new String[]{"*"}));
+        this.tagValues.addAll(List.of(new String[]{"**"}));
     }
 
     @Override

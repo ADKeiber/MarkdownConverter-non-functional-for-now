@@ -1,7 +1,5 @@
 package com.adk.markdown.tag;
 
-import lombok.Getter;
-
 import java.util.Set;
 
 /**
@@ -13,5 +11,5 @@ public class SupportedTags {
 //            new HeadingIdTag(), new HighlightTag(),new HorizontalRuleTag(), new ImageTag(), new ItalicTag(),
 //            new LinkTag(), new OrderedListTag(), new StrikethroughTag(), new SuperscriptTag(), new TableTag(),
 //            new TaskListTag(), new UnorderedListTag()});
-    public static Set<BaseTag> tags = Set.of(new BlockquoteTag());
+    public static Set<BaseTag> tags = Set.of(new ItalicTag());
 }

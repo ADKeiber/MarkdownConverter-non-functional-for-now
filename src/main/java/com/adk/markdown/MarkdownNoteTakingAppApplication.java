@@ -24,7 +24,7 @@ public class MarkdownNoteTakingAppApplication {
 //		String text = "##-## **Bold Text** \\n ##### Regular text ";
 //		String text = "``` Test this is a test to test the stuff ``` a\n outside";
 
-		String text = "``` Test this is a test to test the stuff ``` a\n outside ```    \n";
+		String text = "``` Test this is a test to test the stuff ``` \n outside ```    \n";
 
 		Map<Integer, BaseTag> foundTags = new HashMap<>();
 
@@ -52,7 +52,7 @@ public class MarkdownNoteTakingAppApplication {
 
 				int endIndex = foundTags.get(lastProcessedIndex).getTextWithAppliedFormat(text.substring(lastProcessedIndex));
 				lastProcessedIndex += endIndex;
-//				System.out.println("Remainder text: " + text.substring(lastProcessedIndex));
+				System.out.println("Remainder text: " + text.substring(lastProcessedIndex));
 				System.out.println(" ");
 			}
 			lastProcessedIndex++;

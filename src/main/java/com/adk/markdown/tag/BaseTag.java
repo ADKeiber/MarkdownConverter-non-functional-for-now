@@ -23,7 +23,7 @@ public abstract class BaseTag {
     /**
      * This is needed to see if the actual format of the tag is valid
      */
-    public boolean validFormat;
+    public boolean validFormat = true;
     public List<BaseTag> supportedSubtags = new LinkedList<>();
 
     public Map<Integer, BaseTag> subtags = new HashMap<>();

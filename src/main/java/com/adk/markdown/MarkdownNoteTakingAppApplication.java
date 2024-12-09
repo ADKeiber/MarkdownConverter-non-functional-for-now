@@ -22,10 +22,9 @@ public class MarkdownNoteTakingAppApplication {
 
 		SpringApplication.run(MarkdownNoteTakingAppApplication.class, args);
 //		String text = "##-## **Bold Text** \\n ##### Regular text ";
-		String text = "**Bold Text**";
-//		Pattern regex = Pattern.compile("\r?\n", Pattern.MULTILINE);
-//		String[] lines = regex.split(text);
-//		System.out.println(Arrays.toString(lines));
+//		String text = "``` Test this is a test to test the stuff ``` a\n outside";
+
+		String text = "``` Test this is a test to test the stuff ``` a\n outside ```    \n";
 
 		Map<Integer, BaseTag> foundTags = new HashMap<>();
 
@@ -53,7 +52,7 @@ public class MarkdownNoteTakingAppApplication {
 
 				int endIndex = foundTags.get(lastProcessedIndex).getTextWithAppliedFormat(text.substring(lastProcessedIndex));
 				lastProcessedIndex += endIndex;
-				System.out.println("Remainder text: " + text.substring(lastProcessedIndex));
+//				System.out.println("Remainder text: " + text.substring(lastProcessedIndex));
 				System.out.println(" ");
 			}
 			lastProcessedIndex++;

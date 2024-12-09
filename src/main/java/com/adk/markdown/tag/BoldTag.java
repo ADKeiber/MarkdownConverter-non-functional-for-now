@@ -3,6 +3,7 @@ package com.adk.markdown.tag;
 import java.util.Arrays;
 import java.util.List;
 
+//TODO...
 public class BoldTag extends BaseTag{
 
     public BoldTag(){
@@ -15,12 +16,19 @@ public class BoldTag extends BaseTag{
         this.beginningTag = "**";
         System.out.println(entireText);
         String remainingText = entireText.substring(2);
-        int endTagIndex = remainingText.indexOf("**");
-        if(endTagIndex == -1){
-
-            endTagIndex = remainingText.length();
+        if(entireText.charAt(0) == ' '){
             validFormat = false;
         }
+        int endTagIndex = remainingText.indexOf("**");
+
+        if(endTagIndex == -1){
+            endTagIndex = remainingText.length();
+            validFormat = false;
+        } else {
+            if(endTagIndex == 0 ||remainingText.charAt(endTagIndex - 1) == ' ' )
+                validFormat = false;
+        }
+
         this.content = remainingText.substring(0, endTagIndex);
         System.out.println("end Index: " + endTagIndex );
 
@@ -34,7 +42,7 @@ public class BoldTag extends BaseTag{
             this.endTag = "**";
             System.out.println("End tag: " + this.endTag);
         }
-
+        System.out.println("Valid format: " + this.validFormat);
         return endTagIndex;
     }
 }

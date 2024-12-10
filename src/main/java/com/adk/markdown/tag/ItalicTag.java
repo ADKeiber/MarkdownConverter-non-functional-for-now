@@ -14,7 +14,7 @@ public class ItalicTag extends BaseTag{
         this.beginningTag = "*";
         System.out.println(entireText);
         String remainingText = entireText.substring(1);
-        if(entireText.length() == 1 || (remainingText.charAt(0) == ' ' || remainingText.charAt(0) == '*')){
+        if(entireText.length() == 1 && (remainingText.charAt(0) == ' ' || remainingText.charAt(0) == '*')){
             validFormat = false;
         }
         int endTagIndex = remainingText.indexOf("*");

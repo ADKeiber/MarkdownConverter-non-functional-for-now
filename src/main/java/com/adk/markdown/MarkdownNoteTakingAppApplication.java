@@ -24,7 +24,7 @@ public class MarkdownNoteTakingAppApplication {
 //		String text = "##-## **Bold Text** \\n ##### Regular text ";
 //		String text = "``` Test this is a test to test the stuff ``` a\n outside";
 
-		String text = "*Test*Test";
+		String text = "[title](https://www.example.com)";
 
 		Map<Integer, BaseTag> foundTags = new HashMap<>();
 

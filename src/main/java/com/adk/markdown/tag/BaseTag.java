@@ -18,6 +18,7 @@ public abstract class BaseTag {
      */
     public String beginningTag;
     public String content;
+    public String hiddenContent; // This is used when there is hidden data (link and images)
     public String endTag;
 
     /**

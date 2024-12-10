@@ -24,7 +24,7 @@ public class MarkdownNoteTakingAppApplication {
 //		String text = "##-## **Bold Text** \\n ##### Regular text ";
 //		String text = "``` Test this is a test to test the stuff ``` a\n outside";
 
-		String text = "![alt text](image.jpg)";
+		String text = "---\na- - - - - -";
 
 		Map<Integer, BaseTag> foundTags = new HashMap<>();
 

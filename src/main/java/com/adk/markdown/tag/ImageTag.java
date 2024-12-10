@@ -1,8 +1,87 @@
 package com.adk.markdown.tag;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ImageTag extends BaseTag{
+    public ImageTag(){
+        this.supportedSubtags.addAll(Arrays.asList(new BaseTag[]{ }));
+        this.tagValues.addAll(List.of(new String[]{"!["}));
+        this.beginningTag = "![";
+    }
+
     @Override
     public int getTextWithAppliedFormat(String entireText) {
-        return 0;
+        /**
+         * We need to check there isn't 2 of the same character next to each other ex: (( or [[ this breaks format
+         * you also can't have a single ] inside of a [] or a ) inside of a ( TODO
+         */
+
+        int indexOfStartText = entireText.indexOf("[");
+        int indexOfEndText = entireText.indexOf("]", indexOfStartText);
+        int indexOfStartLink = -1;
+        int indexOfEndLink = -1;
+
+        if(indexOfEndText != -1){
+            while(entireText.charAt(indexOfEndText - 1) == '\\'){
+                System.out.println("ENTERED WHILE");
+                indexOfEndText = entireText.indexOf("]", indexOfEndText + 1);
+                if (indexOfEndText == -1)
+                    break;
+            }
+            indexOfStartLink = entireText.indexOf("(", indexOfEndText);
+
+            if(indexOfStartLink != -1 ) {
+                while(entireText.charAt(indexOfStartLink - 1) == '\\'){
+                    System.out.println("ENTERED WHILE");
+                    indexOfStartLink = entireText.indexOf("]", indexOfStartLink + 1);
+                    if (indexOfStartLink == -1)
+                        break;
+                }
+                System.out.println("Valid format: " + this.validFormat);
+                if(indexOfEndText + 1 != indexOfStartLink)
+                    validFormat = false;
+                indexOfEndLink = entireText.indexOf(")", indexOfStartLink);
+
+                if(indexOfEndLink != -1) {
+                    while(entireText.charAt(indexOfEndLink - 1) == '\\'){
+                        indexOfEndLink = entireText.indexOf(")", indexOfEndLink + 1);
+                        if (indexOfEndLink == -1)
+                            break;
+                    }
+                    if(indexOfEndLink != -1) {
+                        this.content = entireText.substring(indexOfStartText + 1, indexOfEndText);
+                        this.hiddenContent = entireText.substring(indexOfStartLink + 1, indexOfEndLink);
+                        this.endTag = "]";
+                    }
+                }
+            }
+        }
+        boolean duplicateExists = indexOfEndLink != -1 && (
+                countOccurrences(entireText.substring(indexOfStartText, indexOfEndLink + 1), '(') > 1 ||
+                        countOccurrences(entireText.substring(indexOfStartText, indexOfEndLink + 1), ')') > 1 ||
+                        countOccurrences(entireText.substring(indexOfStartText, indexOfEndLink + 1), '[') > 0 ||
+                        countOccurrences(entireText.substring(indexOfStartText, indexOfEndLink + 1), ']') > 1);
+
+        System.out.println("Duplicate: " + duplicateExists);
+
+        if(indexOfEndText == -1 || indexOfStartLink == -1 || indexOfEndLink == -1) {
+            indexOfEndLink = entireText.length();
+            this.validFormat = false;
+        } else if (entireText.substring(indexOfStartText, indexOfEndLink).contains("\n") || duplicateExists ){
+            validFormat = false;
+        }
+        System.out.println(this);
+        return indexOfEndLink + 1;
+    }
+
+    public static int countOccurrences(String text, char letter) {
+        int count = 0;
+        for (int i = 1; i < text.length(); i++) {
+            if (text.charAt(i) == letter && text.charAt(i - 1) != '\\') {
+                count++;
+            }
+        }
+        return count;
     }
 }

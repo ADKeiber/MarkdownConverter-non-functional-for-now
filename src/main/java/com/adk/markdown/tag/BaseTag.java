@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.*;
 
 //TODO Might need to do a precursor check when breaking out these tags. Ex: Checking that the previous value is a new line
-// like in horizontal rule tag
+// like in horizontal rule tag perhaps having a context would be good
 @Data
 public abstract class BaseTag {
 

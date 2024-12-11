@@ -18,6 +18,10 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 public class MarkdownNoteTakingAppApplication {
 
+	/**
+	 * Ne
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		SpringApplication.run(MarkdownNoteTakingAppApplication.class, args);
@@ -29,7 +33,7 @@ public class MarkdownNoteTakingAppApplication {
 		Map<Integer, BaseTag> foundTags = new HashMap<>();
 
 		//TODO NEED TO keep track of 'dead indices' which are indices that don't have an applied format (this includes spaces between formatted content)
-
+		//Prehaps we could do this in a class/method that has the context
 		//Finds all instances of tag values in a text and
 		SupportedTags.tags.forEach(
 				tag -> {

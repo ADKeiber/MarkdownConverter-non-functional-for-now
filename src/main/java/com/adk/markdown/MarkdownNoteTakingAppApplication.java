@@ -24,7 +24,7 @@ public class MarkdownNoteTakingAppApplication {
 //		String text = "##-## **Bold Text** \\n ##### Regular text ";
 //		String text = "``` Test this is a test to test the stuff ``` a\n outside";
 
-		String text = "---\na- - - - - -";
+		String text = "`this is a test \n and a new line \n` test";
 
 		Map<Integer, BaseTag> foundTags = new HashMap<>();
 

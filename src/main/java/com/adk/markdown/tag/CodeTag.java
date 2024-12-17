@@ -19,19 +19,14 @@ public class CodeTag extends BaseTag{
 
     @Override
     public int getTextWithAppliedFormat(String entireText) {
-
         int endIndex = entireText.indexOf("`",1);
-
         if(endIndex == -1 || entireText.substring(1, endIndex).contains("\n\n")){
             validFormat = false;
         } else {
             this.content = entireText.substring(startOfContentIndex, endIndex);
             this.endTag = "`";
         }
-
         endIndex = endIndex == -1? entireText.length(): endIndex + startOfContentIndex;
-
-        System.out.println(this);
         return endIndex;
     }
 }

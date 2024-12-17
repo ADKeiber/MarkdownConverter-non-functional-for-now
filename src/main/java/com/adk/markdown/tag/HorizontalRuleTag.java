@@ -19,7 +19,6 @@ public class HorizontalRuleTag extends BaseTag{
         Pattern pattern = Pattern.compile("[^\\s-]");
         Matcher m = pattern.matcher(entireText);
 
-
         if(newLineIndex == -1){
             endIndex = entireText.length();
         }
@@ -35,7 +34,6 @@ public class HorizontalRuleTag extends BaseTag{
             endIndex -= 1;
         }
         this.content = entireText.substring(0, endIndex);
-        System.out.println(this);
         return endIndex;
     }
 }

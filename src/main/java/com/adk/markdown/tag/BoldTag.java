@@ -14,13 +14,11 @@ public class BoldTag extends BaseTag{
     @Override
     public int getTextWithAppliedFormat(String entireText) {
         this.beginningTag = "**";
-        System.out.println(entireText);
         String remainingText = entireText.substring(2);
         if(entireText.charAt(0) == ' '){
             validFormat = false;
         }
         int endTagIndex = remainingText.indexOf("**");
-
         if(endTagIndex == -1){
             endTagIndex = remainingText.length();
             validFormat = false;
@@ -28,21 +26,12 @@ public class BoldTag extends BaseTag{
             if(endTagIndex == 0 ||remainingText.charAt(endTagIndex - 1) == ' ' )
                 validFormat = false;
         }
-
         this.content = remainingText.substring(0, endTagIndex);
-        System.out.println("end Index: " + endTagIndex );
-
-        System.out.println("Start tag: " + this.beginningTag);
-        System.out.println("content: " + this.content);
-
-        generateSubTags();
-
         if(endTagIndex != remainingText.length()){
             endTagIndex += 4;
             this.endTag = "**";
-            System.out.println("End tag: " + this.endTag);
         }
-        System.out.println("Valid format: " + this.validFormat);
+        generateSubTags();
         return endTagIndex;
     }
 }

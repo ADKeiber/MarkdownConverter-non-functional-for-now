@@ -18,22 +18,14 @@ public class FencedCodeBlock extends BaseTag{
     @Override
     public int getTextWithAppliedFormat(String entireText) {
 
-//        System.out.println("\nEntire string: \n" + entireText);
-//        System.out.println("Entire string length: " + entireText.length());
-//        System.out.println("String after start tag: \n" + entireText.substring(startOfContentIndex));
-
         boolean foundValidEndTag = false;
         int endTagIndex = entireText.indexOf("```", startOfContentIndex);
         endTagIndex = endTagIndex == -1? entireText.length(): endTagIndex + startOfContentIndex;
-
-//        System.out.println("End Index: " + endTagIndex);
-//        System.out.println("Character at End Index: " + entireText.charAt(endTagIndex));
 
 
         while(!foundValidEndTag && endTagIndex <= entireText.length() - 1) {
 
             String remainderText = entireText.substring(endTagIndex + 1);
-//            System.out.println("REMAINDER TEXT: " + remainderText);
 
             // Need to look for anything other than a space between this and either a new line or the end of the string
             int newLineIndex = remainderText.indexOf("\n");
@@ -46,7 +38,6 @@ public class FencedCodeBlock extends BaseTag{
 
             //Sets end tag to null if no characters were found, else ```
             this.endTag = m.find() ? null : "```";
-
             if (this.endTag != null) {
                 foundValidEndTag = true;
             } else {
@@ -55,9 +46,6 @@ public class FencedCodeBlock extends BaseTag{
                 endTagIndex = tempIndex == -1? entireText.length(): endTagIndex + startOfContentIndex;
             }
         }
-
-//        System.out.println("End Index: " + endTagIndex);
-
         return endTagIndex;
     }
 

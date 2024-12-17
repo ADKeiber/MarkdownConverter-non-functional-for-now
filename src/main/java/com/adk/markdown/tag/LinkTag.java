@@ -29,7 +29,6 @@ public class LinkTag extends BaseTag{
 
         if(indexOfEndText != -1){
             while(entireText.charAt(indexOfEndText - 1) == '\\'){
-                System.out.println("ENTERED WHILE");
                 indexOfEndText = entireText.indexOf("]", indexOfEndText + 1);
                 if (indexOfEndText == -1)
                     break;
@@ -38,12 +37,10 @@ public class LinkTag extends BaseTag{
 
             if(indexOfStartLink != -1 ) {
                 while(entireText.charAt(indexOfStartLink - 1) == '\\'){
-                    System.out.println("ENTERED WHILE");
                     indexOfStartLink = entireText.indexOf("]", indexOfStartLink + 1);
                     if (indexOfStartLink == -1)
                         break;
                 }
-                System.out.println("Valid format: " + this.validFormat);
                 if(indexOfEndText + 1 != indexOfStartLink)
                     validFormat = false;
                 indexOfEndLink = entireText.indexOf(")", indexOfStartLink);
@@ -67,8 +64,6 @@ public class LinkTag extends BaseTag{
                 countOccurrences(entireText.substring(indexOfStartText, indexOfEndLink + 1), ')') > 1 ||
                 countOccurrences(entireText.substring(indexOfStartText, indexOfEndLink + 1), '[') > 0 ||
                 countOccurrences(entireText.substring(indexOfStartText, indexOfEndLink + 1), ']') > 1);
-
-        System.out.println("Duplicate: " + duplicateExists);
 
         if(indexOfEndText == -1 || indexOfStartLink == -1 || indexOfEndLink == -1) {
             indexOfEndLink = entireText.length();

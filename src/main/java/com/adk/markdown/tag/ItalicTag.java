@@ -12,7 +12,6 @@ public class ItalicTag extends BaseTag{
     @Override
     public int getTextWithAppliedFormat(String entireText) {
         this.beginningTag = "*";
-        System.out.println(entireText);
         String remainingText = entireText.substring(1);
         if(entireText.length() == 1 && (remainingText.charAt(0) == ' ' || remainingText.charAt(0) == '*')){
             validFormat = false;
@@ -28,19 +27,13 @@ public class ItalicTag extends BaseTag{
         }
 
         this.content = remainingText.substring(0, endTagIndex);
-        System.out.println("end Index: " + endTagIndex );
-
-        System.out.println("Start tag: " + this.beginningTag);
-        System.out.println("content: " + this.content);
 
         generateSubTags();
 
         if(endTagIndex != remainingText.length()){
             endTagIndex += 2;
             this.endTag = "*";
-            System.out.println("End tag: " + this.endTag);
         }
-        System.out.println("Valid format: " + this.validFormat);
         return endTagIndex;
     }
 }

@@ -24,7 +24,6 @@ public class ImageTag extends BaseTag{
 
         if(indexOfEndText != -1){
             while(entireText.charAt(indexOfEndText - 1) == '\\'){
-                System.out.println("ENTERED WHILE");
                 indexOfEndText = entireText.indexOf("]", indexOfEndText + 1);
                 if (indexOfEndText == -1)
                     break;
@@ -33,12 +32,11 @@ public class ImageTag extends BaseTag{
 
             if(indexOfStartLink != -1 ) {
                 while(entireText.charAt(indexOfStartLink - 1) == '\\'){
-                    System.out.println("ENTERED WHILE");
                     indexOfStartLink = entireText.indexOf("]", indexOfStartLink + 1);
                     if (indexOfStartLink == -1)
                         break;
                 }
-                System.out.println("Valid format: " + this.validFormat);
+
                 if(indexOfEndText + 1 != indexOfStartLink)
                     validFormat = false;
                 indexOfEndLink = entireText.indexOf(")", indexOfStartLink);
@@ -71,7 +69,6 @@ public class ImageTag extends BaseTag{
         } else if (entireText.substring(indexOfStartText, indexOfEndLink).contains("\n") || duplicateExists ){
             validFormat = false;
         }
-        System.out.println(this);
         return indexOfEndLink + 1;
     }
 

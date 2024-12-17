@@ -37,11 +37,7 @@ public class HeaderTag extends BaseTag {
         }
 
         this.content = entireText.substring(endBeginningTagIndex, endTagIndex);
-//        System.out.println("end Index: " + endTagIndex );
-        generateSubTags();
-//        System.out.println("Start tag: " + this.beginningTag);
-//        System.out.println("content: " + this.content);
-//        System.out.println("End tag: " + this.endTag);
+
         if(endTagIndex != entireText.length())
             endTagIndex += 2;
         if (entireText.charAt(0) != '#'){
@@ -49,7 +45,7 @@ public class HeaderTag extends BaseTag {
             // in other words this will be used in html rendering and not
            validFormat = false;
         }
-
+        generateSubTags();
         return endTagIndex;
     }
 }
